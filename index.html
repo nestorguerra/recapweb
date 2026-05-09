@@ -676,9 +676,9 @@
         <div class="material-data-item"><strong>46,5 vs 35,5</strong><span>Mediana SG (m)</span></div>
         <div class="material-data-item"><strong>55,7%</strong><span>ORR</span></div>
       </div>
-      <a class="material-cta" href="pdfs/checkmate-9er.pdf" target="_blank" rel="noopener">
+      <a class="material-cta pdf-link" href="pdfs/checkmate-9er.pdf" download="CheckMate-9ER-Motzer-2026.pdf">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/></svg>
-        Abrir PDF
+        Descargar PDF
       </a>
     </div>
 
@@ -692,9 +692,9 @@
         <div class="material-data-item"><strong>10,9 m</strong><span>SLP cohorte A</span></div>
         <div class="material-data-item"><strong>24,3 m</strong><span>SG cohorte A</span></div>
       </div>
-      <a class="material-cta" href="pdfs/cabopoint.pdf" target="_blank" rel="noopener">
+      <a class="material-cta pdf-link" href="pdfs/cabopoint.pdf" download="CaboPoint-Albiges-2026.pdf">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/></svg>
-        Abrir PDF
+        Descargar PDF
       </a>
     </div>
 
@@ -708,9 +708,9 @@
         <div class="material-data-item"><strong>EAU</strong><span>Sociedad</span></div>
         <div class="material-data-item"><strong>Europa</strong><span>Aplicación</span></div>
       </div>
-      <a class="material-cta" href="pdfs/eau-rcc-2026.pdf" target="_blank" rel="noopener">
+      <a class="material-cta pdf-link" href="pdfs/eau-rcc-2026.pdf" download="EAU-RCC-Guidelines-2026.pdf">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/></svg>
-        Abrir PDF
+        Descargar PDF
       </a>
     </div>
 
@@ -1342,7 +1342,31 @@ Estilo de timeline editorial, aspect ratio 16:9, paleta azul corporativa con mar
     });
   }
 
-  // Material card: enlaces directos a pdfs/ (gestionado por el href, sin JS)
+  // Material card: enlaces directos a pdfs/ con verificación previa
+  document.querySelectorAll('.pdf-link').forEach(link => {
+    link.addEventListener('click', async (e) => {
+      const url = link.getAttribute('href');
+      const fileName = url.split('/').pop();
+      // Verificación con HEAD para detectar 404 antes de iniciar descarga
+      try {
+        const res = await fetch(url, { method: 'HEAD' });
+        if (!res.ok) {
+          e.preventDefault();
+          alert(
+            '⚠️ No se encuentra el archivo:\n\n' +
+            url + '\n\n' +
+            'Comprueba que has subido "' + fileName + '" a la carpeta /pdfs/ del repositorio en GitHub. ' +
+            'Recuerda: GitHub Pages distingue mayúsculas y minúsculas.'
+          );
+          return;
+        }
+        // Si existe, el navegador continúa con la descarga (atributo download)
+      } catch (err) {
+        // Si fetch falla (offline, file://, etc.) deja al navegador intentarlo igualmente
+        console.warn('No se pudo verificar antes de descargar:', err);
+      }
+    });
+  });
 </script>
 
 </body>
