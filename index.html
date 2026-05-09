@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook · IA en Oncología · RECAP NOW · Ipsen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f6f3ec;
+    --paper-2: #efe9dd;
+    --ink: #14110d;
+    --ink-soft: #4a443c;
+    --ink-faint: #8a8276;
+    --rule: #1a1714;
+    --accent: #b8431f;
+    --accent-soft: #d96a3f;
+    --code-bg: #1a1714;
+    --code-ink: #f1ebdc;
+    --hairline: rgba(20,17,13,0.12);
+    --tag: #2c5e7e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    background-image:
+      radial-gradient(ellipse at top, rgba(184,67,31,0.04), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.03 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  }
+
+  /* ── TOP BAR ─────────────────────────────── */
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    background: rgba(246, 243, 236, 0.92);
+  }
+  .topbar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--ink-soft);
+  }
+  .topbar-left { font-weight: 500; }
+  .topbar-right { display: flex; gap: 32px; }
+  .topbar-right span:not(:last-child)::after {
+    content: "·";
+    margin-left: 32px;
+    color: var(--ink-faint);
+  }
+
+  /* ── HERO ─────────────────────────────── */
+  .hero {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 40px 60px;
+    border-bottom: 2px solid var(--rule);
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+    font-variation-settings: "opsz" 144;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .hero-meta > div {
+    background: var(--paper);
+    padding: 20px 24px;
+  }
+  .hero-meta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .hero-meta-value {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── MATERIALES NOTEBOOK LM ─────────── */
+  .materials {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 20px;
+  }
+  .section-header-left {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .section-header-right {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-faint);
+  }
+  .materials h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    font-variation-settings: "opsz" 144;
+  }
+  .materials-intro {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 680px;
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .material-card {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s;
+  }
+  .material-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--rule);
+  }
+  .material-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .material-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.15;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .material-card .authors {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .material-card p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+  .material-data {
+    display: flex;
+    gap: 16px;
+    border-top: 1px solid var(--hairline);
+    padding-top: 16px;
+    margin-bottom: 20px;
+  }
+  .material-data-item {
+    font-size: 12px;
+  }
+  .material-data-item strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .material-data-item span {
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+  }
+  .material-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    padding: 12px 16px;
+    background: var(--paper);
+    cursor: pointer;
+    width: fit-content;
+    transition: background 0.2s, color 0.2s;
+  }
+  .material-cta:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .material-cta svg { width: 12px; height: 12px; }
+
+  .materials-note {
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: rgba(184, 67, 31, 0.06);
+    border-left: 3px solid var(--accent);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ── TABS ─────────────────────────────── */
+  .tabs-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 40px 0;
+  }
+  .tabs {
+    display: flex;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 0;
+    gap: 0;
+  }
+  .tab {
+    flex: 1;
+    background: var(--paper);
+    border: none;
+    border-right: 1px solid var(--rule);
+    padding: 32px 28px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--ink-soft);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tab:last-child { border-right: none; }
+  .tab.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .tab-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .tab-title {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 4px;
+    font-variation-settings: "opsz" 144;
+  }
+  .tab-title em { font-style: italic; }
+  .tab-desc {
+    font-size: 13px;
+    opacity: 0.75;
+    margin-top: 8px;
+  }
+
+  /* ── PANELS ─────────────────────────────── */
+  .tab-panel {
+    display: none;
+    padding: 60px 0 100px;
+    animation: fadeIn 0.5s ease;
+  }
+  .tab-panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CHAPTER ─────────────────────────────── */
+  .chapter {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+  .chapter-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-bottom: 40px;
+    border-top: 1px solid var(--rule);
+    padding-top: 40px;
+  }
+  .chapter-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--accent);
+    font-weight: 600;
+    padding-top: 10px;
+  }
+  .chapter h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144;
+  }
+  .chapter h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  .chapter-lead {
+    grid-column: 2;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 720px;
+    margin-top: 24px;
+  }
+
+  /* ── PROMPT BLOCK ─────────────────────────────── */
+  .prompt-block {
+    margin: 32px 0;
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .prompt-block:hover {
+    box-shadow: 4px 4px 0 var(--rule);
+  }
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .prompt-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--ink);
+    font-weight: 600;
+    flex: 1;
+    min-width: 280px;
+  }
+  .prompt-title-tag {
+    color: var(--accent);
+    margin-right: 8px;
+  }
+  .prompt-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .prompt-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 4px 10px;
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    color: var(--ink-soft);
+    border-radius: 0;
+  }
+  .prompt-pill.model { color: var(--tag); border-color: var(--tag); }
+  .prompt-pill.time { color: var(--accent); border-color: var(--accent); }
+
+  .copy-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 8px 14px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .copy-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .copy-btn.copied {
+    background: #2d6e3d;
+    border-color: #2d6e3d;
+  }
+  .copy-btn svg { width: 12px; height: 12px; }
+
+  .prompt-body {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 28px 32px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+  }
+  .prompt-body::selection { background: var(--accent); color: var(--paper); }
+
+  /* ── CASE GRID (sub-cases) ─────────────────────────────── */
+  .cases-divider {
+    margin: 60px 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .cases-divider::before,
+  .cases-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--hairline);
+  }
+  .cases-divider span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--ink-faint);
+  }
+
+  /* ── FOOTER ─────────────────────────────── */
+  footer {
+    border-top: 2px solid var(--rule);
+    padding: 60px 40px 40px;
+    margin-top: 60px;
+    background: var(--paper-2);
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+  }
+  .footer-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .footer-brand em { font-style: italic; color: var(--accent); }
+  .footer-author {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .footer-col p, .footer-col a {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    text-decoration: none;
+    display: block;
+  }
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid var(--hairline);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .topbar-inner { padding: 0 20px; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .topbar-right { flex-wrap: wrap; gap: 16px; }
+    .topbar-right span:not(:last-child)::after { margin-left: 16px; }
+    .hero { padding: 50px 20px 40px; }
+    .hero-meta { grid-template-columns: 1fr 1fr; }
+    .materials { padding: 40px 20px; }
+    .materials-grid { grid-template-columns: 1fr; }
+    .tabs-section { padding: 40px 20px 0; }
+    .tabs { flex-direction: column; }
+    .tab { border-right: none; border-bottom: 1px solid var(--rule); }
+    .tab-title { font-size: 26px; }
+    .chapter { padding: 0 20px 60px; }
+    .chapter-header { grid-template-columns: 1fr; gap: 12px; }
+    .chapter-lead { grid-column: 1; }
+    .prompt-body { padding: 20px; font-size: 12.5px; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ─── TOP BAR ─────────────────────────────────────────── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">P L A Y B O O K · I A E N O N C O L O G Í A</div>
+    <div class="topbar-right">
+      <span>RECAP NOW</span>
+      <span>IPSEN</span>
+      <span>MALLORCA · 9 MAY 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HERO ─────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-eyebrow">Manual y guía práctica del taller</div>
+  <h1>Inteligencia<br>Artificial<br><em>en oncología</em></h1>
+  <p class="hero-sub">Para profesionales del cáncer renal. Dos talleres, prompts copiables, casos clínicos para replicar en consulta.</p>
+
+  <div class="hero-meta">
+    <div>
+      <div class="hero-meta-label">Congreso</div>
+      <div class="hero-meta-value">RECAP NOW · Innovación en cáncer renal</div>
+    </div>
+    <div>
+      <div class="hero-meta-label">Sede</div>
+      <div class="hero-meta-value">Mallorca</div>
+    </div>
+    <div>
+      <div class="hero-meta-label">Autor</div>
+      <div class="hero-meta-value">Néstor Guerra · NCompany</div>
+    </div>
+    <div>
+      <div class="hero-meta-label">Código aprobación</div>
+      <div class="hero-meta-value">CBZ-ES-002105</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MATERIALES NOTEBOOKLM ─────────────────────────────────────────── -->
+<section class="materials">
+  <div class="section-header">
+    <div class="section-header-left">— Materiales de referencia</div>
+    <div class="section-header-right">Cargar en NotebookLM</div>
+  </div>
+  <h2>Tres documentos. <em style="font-family:Fraunces;font-style:italic;color:var(--accent);font-weight:300;">Una verdad clínica.</em></h2>
+  <p class="materials-intro">Estos son los materiales sobre los que se construyen los prompts del taller. Tenerlos cargados en tu NotebookLM (o a mano para los razonadores y Deep Research) eleva enormemente la precisión de las respuestas.</p>
+
+  <div class="materials-grid">
+
+    <div class="material-card">
+      <div class="material-tag">Fuente 01 · Análisis final</div>
+      <h3>CheckMate 9ER</h3>
+      <div class="authors">Motzer RJ et al. — Annals of Oncology, 2026</div>
+      <p>Seguimiento a 5,6 años de nivolumab + cabozantinib frente a sunitinib en primera línea de carcinoma renal de células claras avanzado.</p>
+      <div class="material-data">
+        <div class="material-data-item"><strong>16,4 vs 8,3</strong><span>Mediana SLP (m)</span></div>
+        <div class="material-data-item"><strong>46,5 vs 35,5</strong><span>Mediana SG (m)</span></div>
+        <div class="material-data-item"><strong>55,7%</strong><span>ORR</span></div>
+      </div>
+      <a class="material-cta" href="pdfs/checkmate-9er.pdf" target="_blank" rel="noopener">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/></svg>
+        Abrir PDF
+      </a>
+    </div>
+
+    <div class="material-card">
+      <div class="material-tag">Fuente 02 · Estudio fase II</div>
+      <h3>CaboPoint</h3>
+      <div class="authors">Albiges L et al. — European Urology, 2026</div>
+      <p>Cabozantinib en segunda línea tras combinaciones de primera línea basadas en checkpoint inhibitors. Cohorte A (post IpiNivo) y Cohorte B (post IO+TKI).</p>
+      <div class="material-data">
+        <div class="material-data-item"><strong>40,5%</strong><span>ORR cohorte A</span></div>
+        <div class="material-data-item"><strong>10,9 m</strong><span>SLP cohorte A</span></div>
+        <div class="material-data-item"><strong>24,3 m</strong><span>SG cohorte A</span></div>
+      </div>
+      <a class="material-cta" href="pdfs/cabopoint.pdf" target="_blank" rel="noopener">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/></svg>
+        Abrir PDF
+      </a>
+    </div>
+
+    <div class="material-card">
+      <div class="material-tag">Fuente 03 · Guía clínica</div>
+      <h3>EAU Guidelines<br>Renal Cell Carcinoma</h3>
+      <div class="authors">European Association of Urology, 2026</div>
+      <p>Guía de referencia europea actualizada para el manejo del carcinoma renal en todas sus fases. La verdad clínica de fondo durante el taller.</p>
+      <div class="material-data">
+        <div class="material-data-item"><strong>2026</strong><span>Edición</span></div>
+        <div class="material-data-item"><strong>EAU</strong><span>Sociedad</span></div>
+        <div class="material-data-item"><strong>Europa</strong><span>Aplicación</span></div>
+      </div>
+      <a class="material-cta" href="pdfs/eau-rcc-2026.pdf" target="_blank" rel="noopener">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/></svg>
+        Abrir PDF
+      </a>
+    </div>
+
+  </div>
+
+  <div class="materials-note">
+    <strong>Privacidad y datos clínicos:</strong> nunca subas datos identificables de pacientes a herramientas de IA pública sin contrato BAA o equivalente europeo. Anonimiza siempre antes de subir cualquier documento clínico real (edad por décadas, sin nombres, sin fechas exactas, sin números de historia).
+  </div>
+</section>
+
+<!-- ─── TABS ─────────────────────────────────────────── -->
+<section class="tabs-section">
+  <div class="section-header">
+    <div class="section-header-left">— Talleres prácticos</div>
+    <div class="section-header-right">Selecciona un taller</div>
+  </div>
+</section>
+
+<div style="max-width:1280px;margin:0 auto;padding:0 40px;">
+  <div class="tabs">
+    <button class="tab active" data-tab="taller-1">
+      <div class="tab-num">— Taller 01 / Parte I</div>
+      <div class="tab-title"><em>Investigar</em></div>
+      <div class="tab-desc">Razonadores · Deep Research · NotebookLM</div>
+    </button>
+    <button class="tab" data-tab="taller-2">
+      <div class="tab-num">— Taller 02 / Parte II</div>
+      <div class="tab-title"><em>Crear</em></div>
+      <div class="tab-desc">Vibe coding · Modelos de difusión</div>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TALLER 1 — INVESTIGAR                                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="taller-1">
+
+  <!-- CAPÍTULO 5: RAZONADORES -->
+  <section class="chapter">
+    <div class="chapter-header">
+      <div class="chapter-num">— Capítulo 5<br>Razonamiento</div>
+      <div>
+        <h2>Razonadores: <em>la IA que piensa antes de hablar</em></h2>
+        <p class="chapter-lead">La diferencia entre un modelo normal y un razonador es la misma que entre el primer pensamiento que se te viene a la cabeza ante una pregunta clínica difícil y la respuesta que das tras parar, repasar la guía y consultar con un compañero.</p>
+      </div>
+    </div>
+
+    <!-- PROMPT PRINCIPAL TALLER -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">PROMPT ·</span> Razonador clínico — Secuenciación tras IO+IO en CCR con histología desfavorable</div>
+        <div class="prompt-meta">
+          <span class="prompt-pill model">Claude Opus 4.7</span>
+          <span class="prompt-pill time">60-120 s</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Eres un oncólogo médico experto en cáncer renal. Razona paso a paso la siguiente decisión terapéutica:
+
+Mujer de 45 años, ECOG 1, con carcinoma renal de células claras grado nuclear ISUP/WHO 4 y 5% de áreas rabdoides, clasificación IMDC intermedio (2 factores). Recibió como primera línea ipilimumab + nivolumab durante 3 meses con progresión multiorgánica (pulmón, ganglios, suprarrenal y mets óseas en S1-S2 con compresión radicular).
+
+Pregunta: ¿Qué segunda línea propones, con qué dosis de inicio, y qué medidas adicionales (radioterapia paliativa, antirresortivos, anticoagulación profiláctica) consideras desde el primer ciclo?
+
+Responde en cuatro bloques: (1) Decisión terapéutica con justificación basada en evidencia 2024-2026 y citando los estudios clave (CaboPoint cohorte A, CONTACT-03, CANTATA, LITESPARK 003); (2) Dosis de inicio y ajustes esperados según las recomendaciones del CaboPoint (60 mg/d con posibilidad de reducción a 40 o 20 mg/d); (3) Medidas concomitantes y profilaxis (especialmente antirresortivos con denosumab/zoledrónico ante mets óseas, según guía EAU 2026); (4) Hitos de monitorización y criterios para escalar a tercera línea.
+
+No inventes datos. Si una afirmación no tiene evidencia robusta, indícalo explícitamente. Cita estudios y umbrales por nombre cuando los uses.</div>
+    </div>
+
+    <div class="cases-divider"><span>Casos adicionales para practicar</span></div>
+
+    <!-- Caso A -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO A ·</span> Anciano fit con NIVO+CABO y toxicidad acumulada</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Mujer de 78 años fit elderly, ECOG 1, IMDC intermedio. Recibió primera línea con nivolumab + cabozantinib (esquema CheckMate 9ER) con respuesta parcial inicial. A los 14 meses, mantiene respuesta sostenida pero ha desarrollado fatiga grado 2, pérdida ponderal del 10% en los últimos 6 meses y diarrea grado 2 intermitente. La paciente expresa cansancio del tratamiento pero quiere "lo correcto para vivir bien".
+
+Razona los tres escenarios posibles (mantener pauta actual, reducir cabozantinib manteniendo nivolumab, o suspender uno de los dos componentes) con criterios objetivos para decidir. Considera los datos a 5,6 años de seguimiento del CheckMate 9ER (Motzer et al., 2026) en cuanto a beneficio sostenido y el perfil de toxicidad acumulado descrito en el estudio. Propón un plan de soporte nutricional y de actividad física, e incluye umbrales de alarma para escalar la decisión.</div>
+    </div>
+
+    <!-- Caso B -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO B ·</span> Hipercalcemia tumoral refractaria con enfermedad ósea masiva</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Paciente con CCR metastásico en segunda línea con cabozantinib 40 mg/d y enfermedad ósea masiva (múltiples lesiones líticas en esqueleto axial y apendicular). Calcemia corregida 17,2 mg/dL refractaria a hidratación con suero fisiológico, calcitonina y ácido zoledrónico. Insuficiencia renal aguda con creatinina 1,41 mg/dL.
+
+Razona paso a paso siguiendo las recomendaciones de la EAU 2026 sobre manejo de complicaciones esqueléticas en CCR avanzado: (1) ¿Cuál es la siguiente medida farmacológica disponible y a qué dosis? (2) ¿Hay indicación de denosumab y en qué condiciones de función renal? (3) ¿Qué papel tiene el cinacalcet aquí? (4) ¿Cuándo plantear cuidados paliativos exclusivos? Considera también si conviene mantener, reducir o suspender el cabozantinib durante la crisis.</div>
+    </div>
+
+    <!-- Caso C -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO C ·</span> Selección 1L con metástasis óseas dominantes</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Varón de 62 años, ECOG 1, IMDC intermedio (1 factor: tiempo desde diagnóstico < 1 año), con CCR de células claras debutando con metástasis óseas múltiples sintomáticas (S1, fémur izquierdo) y dos lesiones pulmonares pequeñas. Sin afectación visceral mayor.
+
+Razona la mejor estrategia de primera línea considerando especialmente el subgrupo de pacientes con metástasis óseas. Los datos del análisis final del CheckMate 9ER (Motzer et al., 2026) muestran un beneficio sostenido en este subgrupo con nivolumab + cabozantinib (HR para OS 0.66 frente a sunitinib en pacientes con mets óseas, HR para PFS también favorable). Compara esta opción con pembrolizumab + lenvatinib y con ipilimumab + nivolumab. Incluye recomendaciones sobre antirresortivos, radioterapia paliativa de la lesión sintomática y monitorización de eventos esqueléticos según la guía EAU 2026.</div>
+    </div>
+
+  </section>
+
+  <!-- CAPÍTULO 6: DEEP RESEARCH -->
+  <section class="chapter">
+    <div class="chapter-header">
+      <div class="chapter-num">— Capítulo 6<br>Investigación profunda</div>
+      <div>
+        <h2>Deep Research: <em>investigar como un equipo entero</em></h2>
+        <p class="chapter-lead">Hasta 2025, una revisión bibliográfica seria sobre un tema clínico complejo costaba entre 4 y 20 horas a un médico con experiencia. En 2026, Deep Research lo hace en 15 minutos. No es marketing: es la realidad.</p>
+      </div>
+    </div>
+
+    <!-- PROMPT PRINCIPAL -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">PROMPT ·</span> Deep Research — Secuenciación tras IO+IO en CCR (Taller)</div>
+        <div class="prompt-meta">
+          <span class="prompt-pill model">ChatGPT Pro / Gemini DR</span>
+          <span class="prompt-pill time">15-25 min</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Realiza una revisión profunda y actualizada (2024-2026) sobre la secuenciación óptima tras progresión a doble inmunoterapia (ipilimumab + nivolumab) de primera línea en carcinoma renal de células claras metastásico.
+
+Cubre obligatoriamente:
+1. Opciones terapéuticas en segunda línea, con datos de eficacia (SLP, SG, ORR), toxicidad y nivel de evidencia
+2. Estudios pivotales: CaboPoint (Albiges et al., European Urology 2026) — datos detallados de cohorte A (post IO+IO): ORR 40,5%, mediana de SLP 10,9 meses, mediana de SG 24,3 meses; CONTACT-03 y CANTATA (cabozantinib en brazo control), LITESPARK 003 cohorte 2 (belzutifan + cabozantinib)
+3. Subgrupos especiales: histologías desfavorables (rabdoides, sarcomatoide), edad avanzada, IMDC pobre, metástasis óseas
+4. Posicionamiento en guías EAU 2026 y ESMO 2024-2026
+5. Ensayos clínicos abiertos en España con criterios de inclusión
+6. Manejo práctico de toxicidad de cabozantinib basado en CaboPoint (escalado de dosis 60→40→20 mg)
+
+Entrega el informe en formato estructurado con: resumen ejecutivo (200 palabras), tabla comparativa de opciones de segunda línea, sección de subgrupos, posicionamiento en guías, y bibliografía con DOIs.
+
+Cita solo fuentes primarias peer-reviewed y abstracts de congresos ASCO, ASCO-GU y ESMO 2024-2026.</div>
+    </div>
+
+    <div class="cases-divider"><span>Casos adicionales para practicar</span></div>
+
+    <!-- Caso A -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO A ·</span> Biomarcadores predictivos en CCR avanzado</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Revisión 2024-2026 sobre biomarcadores predictivos de respuesta y resistencia a IO+TKI e IO+IO en carcinoma renal de células claras metastásico.
+
+Cubre: PD-L1, firma génica IMmotion (Atezolizumab), expresión de HIF/VHL, carga mutacional tumoral (TMB), microbioma intestinal, biomarcadores en sangre periférica (NLR, CRP). Nivel de evidencia para cada uno y aplicabilidad en práctica clínica europea actual.</div>
+    </div>
+
+    <!-- Caso B -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO B ·</span> Beneficio sostenido de IO+TKI en 1L de CCR</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Síntesis comparativa del beneficio sostenido (más de 4 años de seguimiento) de los principales regímenes IO+TKI en primera línea de CCR de células claras metastásico.
+
+Cubre los datos finales o de seguimiento extendido publicados en 2024-2026 de:
+- CheckMate 9ER (nivolumab + cabozantinib vs sunitinib): análisis final con 5,6 años de seguimiento (Motzer et al., Annals of Oncology 2026): SLP 16,4 vs 8,3 meses, SG 46,5 vs 35,5 meses, tasas a 60 meses (PFS 13,6% vs 3,6%; OS 40,9% vs 35,4%)
+- CLEAR (pembrolizumab + lenvatinib vs sunitinib): seguimiento final 4 años
+- KEYNOTE-426 (pembrolizumab + axitinib vs sunitinib): seguimiento 43 meses
+- Análisis por subgrupos IMDC y por sitios de metástasis (hueso, hígado, pulmón)
+
+Entrega tabla comparativa head-to-head no estadística (señalando explícitamente las limitaciones de comparar entre ensayos), posicionamiento en guías EAU 2026 y ESMO 2024, y conclusión sobre selección de paciente.</div>
+    </div>
+
+    <!-- Caso C -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO C ·</span> Carcinoma renal NO de células claras</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Estado del arte en 2026 del tratamiento sistémico de los carcinomas renales no de células claras (papilar tipo 1 y 2, cromófobo, de los conductos colectores, medular).
+
+Cubre: papel de cabozantinib en monoterapia (estudios SWOG 1500), papel de pembrolizumab + lenvatinib (cohorte 2 de KEYNOTE-B61), evidencia para pembrolizumab monoterapia en cromófobo y papilar, y ensayos clínicos abiertos. Tabla comparativa por subtipo histológico.</div>
+    </div>
+
+    <!-- Caso D -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO D ·</span> 2L tras IO+VEGFR-TKI en CCR</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Estado del arte (2024-2026) del tratamiento de segunda línea en CCR avanzado tras progresión a una combinación IO + VEGFR-TKI (axitinib + pembrolizumab, axitinib + avelumab, lenvatinib + pembrolizumab, nivolumab + cabozantinib).
+
+Datos clave a integrar:
+- CaboPoint cohorte B (Albiges et al., European Urology 2026): cabozantinib en 2L tras IO+VEGFR-TKI con ORR 27,5%, SLP 8,3 meses, SG 24,1 meses
+- Real-world data CARINA y CABOREAL
+- LITESPARK-011 (belzutifan + lenvatinib vs cabozantinib en 2L) — diseño y datos preliminares si disponibles
+- Estrategia de cross-VEGFR-TKI vs cambio de mecanismo
+
+Entrega: tabla con opciones disponibles (cabozantinib, tivozanib, lenvatinib + everolimus, belzutifan en monoterapia o combinación), criterios para seleccionar entre ellas según perfil del paciente, y recomendaciones EAU 2026.</div>
+    </div>
+
+  </section>
+
+  <!-- CAPÍTULO 7: NOTEBOOKLM -->
+  <section class="chapter">
+    <div class="chapter-header">
+      <div class="chapter-num">— Capítulo 7<br>Conocimiento personal</div>
+      <div>
+        <h2>NotebookLM: <em>tu segundo cerebro clínico</em></h2>
+        <p class="chapter-lead">Si Deep Research es el equipo de búsqueda externa, NotebookLM es el archivo personal que guarda y procesa todo lo que tú decides que merece la pena guardar. Carga las tres fuentes del taller arriba y empieza por aquí.</p>
+      </div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">PROMPT ·</span> NotebookLM — Personalización del Audio Overview</div>
+        <div class="prompt-meta">
+          <span class="prompt-pill model">NotebookLM Plus</span>
+          <span class="prompt-pill time">10-12 min audio</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Genera un audio overview en español de 10-12 minutos dirigido a oncólogos médicos especialistas en patología genitourinaria.
+
+Tono: profesional, ágil, asume que la audiencia conoce los conceptos básicos. No expliques qué es la inmunoterapia o qué es un ITK; entra directamente en datos.
+
+Estructura:
+(1) Estado del arte de la primera línea en CCR avanzado en 2026, con foco en los resultados a 5,6 años de CheckMate 9ER y comparación con CLEAR y KEYNOTE-426
+(2) Segunda línea tras IO+IO: qué nos dice CaboPoint en cohorte A y B
+(3) Cambios y matices clave de la EAU 2026 frente a versiones previas
+(4) Tres puntos prácticos para el lunes en consulta
+
+Cita siempre los estudios por nombre y los números clave. Termina con una recomendación clara de dónde profundizar.</div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TALLER 2 — CREAR                                             -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="tab-panel" id="taller-2">
+
+  <!-- CAPÍTULO 9: VIBE CODING -->
+  <section class="chapter">
+    <div class="chapter-header">
+      <div class="chapter-num">— Capítulo 9<br>Construir</div>
+      <div>
+        <h2>Vibe coding: <em>crear apps clínicas sin programar</em></h2>
+        <p class="chapter-lead">Lo más revolucionario de la IA en 2026 no es que responda mejor preguntas. Es que cualquier profesional puede crear su propia herramienta de software en 15 minutos sin saber programar.</p>
+      </div>
+    </div>
+
+    <!-- PROMPT PRINCIPAL: CALCULADORA IMDC -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">PROMPT ·</span> Vibe coding — Calculadora IMDC en directo</div>
+        <div class="prompt-meta">
+          <span class="prompt-pill model">Claude Opus 4.7</span>
+          <span class="prompt-pill time">2-4 min</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Crea una aplicación web simple, en un único archivo HTML autónomo (HTML + CSS + JavaScript embebidos, sin dependencias externas), que calcule el score IMDC para clasificación pronóstica en cáncer renal de células claras metastásico.
+
+Requisitos funcionales:
+- Seis variables de entrada con interruptores Sí/No claros y bien etiquetados:
+  1. Tiempo desde el diagnóstico al inicio del tratamiento sistémico < 1 año
+  2. Karnofsky < 80% (o ECOG ≥ 2)
+  3. Hemoglobina < límite inferior de la normalidad
+  4. Calcio corregido > límite superior de la normalidad
+  5. Neutrófilos > límite superior de la normalidad
+  6. Plaquetas > límite superior de la normalidad
+
+Requisitos de salida:
+- Cálculo en tiempo real al activar/desactivar variables
+- Categoría de riesgo claramente etiquetada: Favorable (0 factores), Intermedio (1-2 factores), Pobre (≥ 3 factores)
+- Color de fondo de la categoría en verde, ámbar o rojo según riesgo
+- Tabla pequeña con la mediana de supervivencia global esperada por categoría según los datos publicados (cita los rangos)
+- Disclaimer: "Herramienta educativa. Validar siempre con la guía clínica vigente"
+
+Diseño: limpio, profesional, mobile-first. Sin imágenes externas. Tipografía sans-serif legible.</div>
+    </div>
+
+    <div class="cases-divider"><span>Casos adicionales para practicar</span></div>
+
+    <!-- Caso A -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO A ·</span> Conversor de dosis cabozantinib</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Crea una aplicación web en un solo archivo HTML que recomiende la dosis de cabozantinib en función del estado hepático del paciente (Child-Pugh A, B o C) y de la presencia de toxicidades específicas (hipertensión arterial, diarrea, náuseas, pérdida de peso, fatiga, eritrodisestesia palmoplantar).
+
+Para cada toxicidad, incluye los grados CTCAE 1 a 4 y aplica las reglas de modificación de dosis según ficha técnica de Cometriq/Cabometyx (mantener, reducir 60→40→20 mg, suspender, discontinuar).
+
+Integra el algoritmo de manejo escalado de dosis tal y como se aplicó en el estudio CaboPoint (Albiges et al., European Urology 2026), donde la mayoría de pacientes mantuvieron dosis < 60 mg/d con beneficio clínico.
+
+Salida: dosis recomendada, motivos de la recomendación con cita a la ficha técnica y al estudio CaboPoint, y tabla de seguimiento sugerido. Disclaimer estándar.</div>
+    </div>
+
+    <!-- Caso B -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO B ·</span> Calculadora de equivalencias opioides</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Crea una calculadora web sencilla de equivalencias entre los principales opioides usados en oncología (morfina oral, morfina subcutánea, fentanilo TTS, oxicodona oral, hidromorfona oral, tapentadol oral, metadona oral).
+
+Funcionalidad:
+- Selector del opioide y dosis de origen
+- Selector del opioide de destino
+- Cálculo automático de la dosis equivalente con redondeo razonable
+- Recomendación de reducción del 25-30% al rotar (excepto a metadona, donde se aplican reglas especiales)
+- Aviso explícito al rotar a metadona: "Requiere experto. Reducción inicial del 50-70%"
+- Tabla de referencia de los factores usados, con fuente
+
+Disclaimer estándar.</div>
+    </div>
+
+    <!-- Caso C -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO C ·</span> Asistente de hipercalcemia tumoral</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Aplicación web en un archivo HTML que oriente el manejo de la hipercalcemia tumoral en función del nivel de calcio corregido y de la función renal.
+
+Inputs: calcio total, albúmina (para corrección), creatinina, FG estimado, PTH, sintomatología.
+
+Outputs:
+- Calcio corregido calculado automáticamente
+- Severidad: leve (10,5-12 mg/dL), moderada (12-14), severa (>14)
+- Recomendaciones escalonadas: hidratación con SF, calcitonina (dosis), bifosfonato (zoledrónico vs pamidronato según FG), denosumab si bifosfonatos contraindicados, corticoides en casos seleccionados
+- Alarmas: hospitalización si severa, valoración de diálisis si fallo renal grave o bifosfonatos no usables
+- Tabla con dosis y notas
+
+Disclaimer estándar.</div>
+    </div>
+
+    <!-- Caso D -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO D ·</span> Generador de informe para comité tumoral</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Aplicación web sencilla en HTML que tome datos clínicos básicos de un paciente con cáncer renal metastásico y genere un informe estructurado en formato listo para copiar al comité tumoral.
+
+Inputs: edad, sexo, ECOG, comorbilidades, fecha de diagnóstico, histología, estadiaje TNM, tratamientos previos (con respuesta y toxicidad), situación actual, pregunta para el comité.
+
+Output: informe estructurado con secciones de antecedentes, evolución, situación actual y pregunta. Formato profesional, listo para pegar en historia clínica electrónica. Botón "Copiar al portapapeles".
+
+Disclaimer estándar.</div>
+    </div>
+
+  </section>
+
+  <!-- CAPÍTULO 10: MODELOS DE DIFUSIÓN -->
+  <section class="chapter">
+    <div class="chapter-header">
+      <div class="chapter-num">— Capítulo 10<br>Imágenes</div>
+      <div>
+        <h2>Modelos de difusión: <em>imágenes y pósters científicos</em></h2>
+        <p class="chapter-lead">Hasta hace seis meses, generar una figura técnica decente para un póster científico requería un diseñador gráfico o un experto en Adobe Illustrator. En 2026 no. Tres frases bien escritas y treinta segundos.</p>
+      </div>
+    </div>
+
+    <!-- PROMPT 1: ALGORITMO TERAPÉUTICO -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">PROMPT ·</span> Difusión — Esquema de algoritmo terapéutico</div>
+        <div class="prompt-meta">
+          <span class="prompt-pill model">Imagen Generation 2.0</span>
+          <span class="prompt-pill time">10-20 s</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Crea una infografía científica profesional, estilo póster de congreso médico de oncología, con el siguiente contenido:
+
+Título superior: "Algoritmo terapéutico en CCR metastásico — 2026"
+
+Cuatro paneles horizontales etiquetados con números:
+1. "Primera línea — IMDC favorable" (con dos opciones: Pembrolizumab + Lenvatinib, Pembrolizumab + Axitinib)
+2. "Primera línea — IMDC intermedio/pobre" (con tres opciones: Ipilimumab + Nivolumab, Cabozantinib + Nivolumab, Pembrolizumab + Lenvatinib)
+3. "Segunda línea tras IO+IO" (con: Cabozantinib, Belzutifan + Cabozantinib en ensayo)
+4. "Segunda línea tras IO+TKI" (con: Cabozantinib si no recibido, alternativa: Tivozanib o Lenvatinib + Everolimus)
+
+Estilo: paleta azul corporativa profesional con acentos en verde y ámbar. Tipografía sans-serif limpia. Iconos médicos discretos. Aspecto de revista científica seria, no marketing farmacéutico. Layout de cuatro paneles en línea horizontal, separados por flechas.
+
+Aspect ratio: 16:9, alta resolución.</div>
+    </div>
+
+    <!-- PROMPT 2: MECANISMO DE ACCIÓN -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">PROMPT ·</span> Difusión — Mecanismo de acción IO + TKI</div>
+        <div class="prompt-meta">
+          <span class="prompt-pill model">NanoBanana 2 (Gemini)</span>
+          <span class="prompt-pill time">5-10 s</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Crea una ilustración científica vertical estilo Nature Reviews que muestre el mecanismo de acción combinado de inmunoterapia anti-PD-1 + ITK antiangiogénico en cáncer renal de células claras.
+
+Elementos a incluir:
+- Una célula tumoral en el centro
+- Un linfocito T efector aproximándose
+- El eje PD-1 / PD-L1 marcado con un anticuerpo bloqueando la interacción
+- Vasos sanguíneos tumorales aberrantes con receptores VEGFR marcados
+- Una pequeña molécula inhibidora (TKI) bloqueando los receptores VEGFR
+- Etiquetas claras en español: "Anti-PD1", "PD-L1 tumoral", "VEGFR-2", "TKI", "Linfocito T citotóxico"
+- Flechas indicando los efectos: "Activación inmune" y "Normalización vascular"
+
+Estilo: ilustración científica profesional, paleta azul-verde-ámbar suave, fondo blanco. Aspecto editorial serio.
+
+Aspect ratio: 3:4 (vertical), alta resolución.</div>
+    </div>
+
+    <div class="cases-divider"><span>Casos adicionales para practicar</span></div>
+
+    <!-- Caso A -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO A ·</span> Comparativa de variantes histológicas</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Genera una infografía con seis paneles que muestren visualmente las características distintivas de los principales subtipos de carcinoma renal: células claras, papilar tipo 1, papilar tipo 2, cromófobo, conductos colectores, y medular. Incluye etiquetas con frecuencia relativa, alteración genética principal y pronóstico.
+
+Estilo Nature Reviews, paleta azul-verde-ámbar, layout 3x2, aspect ratio 16:9. Etiquetas en español.</div>
+    </div>
+
+    <!-- Caso B -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO B ·</span> Manejo escalonado de HTA por TKI</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Genera una infografía vertical en estilo de protocolo hospitalario que muestre el manejo escalonado de la HTA inducida por TKI: grado 1, 2, 3, 4, con acciones recomendadas en cada nivel y umbrales claros.
+
+Iconografía clínica neutra, paleta institucional azul-gris con acentos en ámbar para alarmas y rojo para grado 4. Aspect ratio 3:4 vertical, alta resolución. Etiquetas en español.</div>
+    </div>
+
+    <!-- Caso C -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO C ·</span> Material informativo para pacientes</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Genera una hoja informativa para pacientes en español sencillo, ilustrada, sobre qué esperar en las primeras semanas con cabozantinib: efectos secundarios frecuentes, signos de alarma, contactos.
+
+Estilo cálido pero profesional, no infantil. Paleta suave azul-verde con acentos cálidos. Iconografía amigable. Adecuada para imprimir en A4 (aspect ratio vertical).</div>
+    </div>
+
+    <!-- Caso D -->
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="prompt-title-tag">CASO D ·</span> Esquema temporal de seguimiento</div>
+        <div class="prompt-meta">
+          <button class="copy-btn" onclick="copyPrompt(this)">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+      <div class="prompt-body">Genera una línea temporal horizontal del seguimiento estándar de un paciente con CCR metastásico en tratamiento con IO+TKI durante el primer año: visitas, analíticas, TAC, evaluaciones de toxicidad.
+
+Estilo de timeline editorial, aspect ratio 16:9, paleta azul corporativa con marcadores en ámbar para hitos clave. Etiquetas en español. Iconografía clínica discreta.</div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Néstor Guerra<br><em>NCompany</em></div>
+      <p class="footer-author">Consultoría e impartición de talleres de IA aplicada al sector pharma.<br>Madrid · 2026</p>
+    </div>
+    <div class="footer-col">
+      <h4>— Congreso</h4>
+      <p>RECAP NOW · Ipsen</p>
+      <p>Innovación en cáncer renal</p>
+      <p>Mallorca, 9 mayo 2026</p>
+    </div>
+    <div class="footer-col">
+      <h4>— Recursos</h4>
+      <a href="https://anthropic.com/news" target="_blank">Anthropic News</a>
+      <a href="https://openai.com/blog" target="_blank">OpenAI Blog</a>
+      <a href="https://blog.google/technology/ai" target="_blank">Google AI Blog</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Código de aprobación · CBZ-ES-002105</span>
+    <span>Mayo 2026</span>
+  </div>
+</footer>
+
+<script>
+  // Tabs
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      panels.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+      window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 80, behavior: 'smooth' });
+    });
+  });
+
+  // Copy prompt
+  function copyPrompt(btn) {
+    const block = btn.closest('.prompt-block');
+    const body = block.querySelector('.prompt-body').textContent;
+    navigator.clipboard.writeText(body).then(() => {
+      const span = btn.querySelector('span');
+      const originalText = span.textContent;
+      span.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        span.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 1800);
+    }).catch(err => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = body;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const span = btn.querySelector('span');
+      span.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        span.textContent = 'Copiar';
+        btn.classList.remove('copied');
+      }, 1800);
+    });
+  }
+
+  // Material card: enlaces directos a pdfs/ (gestionado por el href, sin JS)
+</script>
+
+</body>
+</html>
